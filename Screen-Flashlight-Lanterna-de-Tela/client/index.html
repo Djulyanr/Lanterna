@@ -25,19 +25,15 @@
     <script type="module" src="/src/main.tsx"></script>
 
     <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then(reg => console.log("Service Worker registrado com sucesso! Escopo:", reg.scope))
-            .catch(err => console.error("Falha ao registrar o Service Worker:", err));
-        });
-      }
-    </script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js');
-      }
-    </script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("service-worker.js")
+      .then(reg => console.log("Service Worker OK:", reg.scope))
+      .catch(err => console.error("Erro SW:", err));
+  });
+}
+</script>
+
   </body>
 </html>
