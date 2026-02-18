@@ -1,46 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta charset="UTF-8" />
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+  <title>Lanterna</title>
 
-    <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="/Lanterna/manifest.json">
 
-    <title>Lanterna de Tela Colorida</title>
+  <link rel="icon" type="image/png" href="/Lanterna/favicon.png" />
+  <link rel="apple-touch-icon" href="/Lanterna/icon-192.png">
 
-    <meta name="description" content="Lanterna de tela simples onde você escolhe a cor para preencher a tela." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="apple-touch-icon" href="icon-192.png">
+  <script type="module" crossorigin src="/Lanterna/assets/index-30iuQsEI.js"></script>
+  <link rel="stylesheet" crossorigin href="/Lanterna/assets/index-iDWLMtH_.css">
+</head>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<body>
+  <div id="root"></div>
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/Lanterna/assets/index-30iuQsEI.js"></script>
-    <link rel="stylesheet" crossorigin href="/Lanterna/assets/index-iDWLMtH_.css">
-  </head>
-
-  <body>
-    <div id="root"></div>
-
-
-
-
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("service-worker.js")
-            .then(reg => console.log("Service Worker OK:", reg.scope))
-            .catch(err => console.error("Erro SW:", err));
-        });
-      }
-    </script>
-  </body>
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/Lanterna/service-worker.js")
+          .then((reg) => console.log("Service Worker OK:", reg.scope))
+          .catch((err) => console.error("Erro SW:", err));
+      });
+    }
+  </script>
+</body>
 </html>
