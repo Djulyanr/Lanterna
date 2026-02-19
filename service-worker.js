@@ -1,12 +1,14 @@
 const CACHE_NAME = "lanterna-v1";
 // Adicione o index.html e o favicon que estavam faltando
 const ASSETS = [
-  "/",
-  "/index.html",
-  "/manifest.json",
-  "/favicon.png",
-  "/icon-192.png",
-  "/icon-512.png"
+  "/Lanterna/",
+  "/Lanterna/index.html",
+  "/Lanterna/manifest.json",
+  "/Lanterna/favicon.png",
+  "/Lanterna/icon-192.png",
+  "/Lanterna/icon-512.png",
+  "/Lanterna/assets/index-30iuQsEI.js", // Nome exato do seu JS
+  "/Lanterna/assets/index-iDWLMtH_.css"  // Nome exato do seu CSS
 ];
 
 self.addEventListener("install", (event) => {
