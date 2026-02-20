@@ -2,48 +2,61 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <!-- Cor dinâmica da barra -->
   <meta name="theme-color" content="#000000" id="theme-color-meta">
+
+  <!-- iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <title>Lanterna</title>
 
   <link rel="manifest" href="/Lanterna/manifest.json">
-
   <link rel="icon" type="image/png" href="/Lanterna/favicon.png" />
   <link rel="apple-touch-icon" href="/Lanterna/icon-192.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Evita flash branco -->
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+      height: 100%;
+    }
+  </style>
 
   <script type="module" crossorigin src="/Lanterna/assets/index-30iuQsEI.js"></script>
   <link rel="stylesheet" crossorigin href="/Lanterna/assets/index-iDWLMtH_.css">
 </head>
-  <script>
-  function atualizarBarraStatus(cor) {
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    if (metaTheme) {
-      metaTheme.setAttribute("content", cor);
-    }
-  }
-</script>
-  <script>
-  const observer = new MutationObserver(() => {
-    const corAtual = window.getComputedStyle(document.body).backgroundColor;
-    atualizarBarraStatus(corAtual);
-  });
-
-  observer.observe(document.body, {
-    attributes: true,
-    attributeFilter: ['style']
-  });
-</script>
 
 <body>
   <div id="root"></div>
 
+  <!-- Atualiza barra automaticamente -->
+  <script>
+    function atualizarBarraStatus(cor) {
+      const metaTheme = document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) {
+        metaTheme.setAttribute("content", cor);
+      }
+    }
+
+    window.addEventListener("load", () => {
+      const observer = new MutationObserver(() => {
+        const corAtual = window.getComputedStyle(document.body).backgroundColor;
+        atualizarBarraStatus(corAtual);
+      });
+
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['style']
+      });
+    });
+  </script>
+
+  <!-- Service Worker -->
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
@@ -54,5 +67,6 @@
       });
     }
   </script>
+
 </body>
 </html>
