@@ -21,6 +21,14 @@
   <script type="module" crossorigin src="/Lanterna/assets/index-30iuQsEI.js"></script>
   <link rel="stylesheet" crossorigin href="/Lanterna/assets/index-iDWLMtH_.css">
 </head>
+  <script>
+  function atualizarBarraStatus(cor) {
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute("content", cor);
+    }
+  }
+</script>
 
 <body>
   <div id="root"></div>
