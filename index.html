@@ -29,6 +29,17 @@
     }
   }
 </script>
+  <script>
+  const observer = new MutationObserver(() => {
+    const corAtual = window.getComputedStyle(document.body).backgroundColor;
+    atualizarBarraStatus(corAtual);
+  });
+
+  observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: ['style']
+  });
+</script>
 
 <body>
   <div id="root"></div>
