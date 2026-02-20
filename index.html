@@ -4,77 +4,81 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-  <!-- Cor dinâmica da barra -->
-  <meta name="theme-color" content="#000000" id="theme-color-meta">
+  <title>Lanterna</title>
+
+  <!-- Theme color único e controlável -->
+  <meta name="theme-color" content="#000000">
 
   <!-- iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <title>Lanterna</title>
+  <!-- Manifest -->
+  <link rel="manifest" href="./manifest.json">
 
-  <link rel="manifest" href="/Lanterna/manifest.json">
-  <link rel="icon" type="image/png" href="/Lanterna/favicon.png" />
-  <link rel="apple-touch-icon" href="/Lanterna/icon-192.png">
+  <!-- Ícones -->
+  <link rel="icon" type="image/png" href="./favicon.png" />
+  <link rel="apple-touch-icon" href="./icon-192.png">
 
-  <!-- Evita flash branco -->
+  <!-- Evita flash branco e garante tela cheia -->
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background-color: #000000;
       height: 100%;
+      background-color: #000000;
+      overflow: hidden;
     }
   </style>
 
-  <script type="module" crossorigin src="/Lanterna/assets/index-30iuQsEI.js"></script>
-  <link rel="stylesheet" crossorigin href="/Lanterna/assets/index-iDWLMtH_.css">
+  <!-- Bundle -->
+  <script type="module" crossorigin src="./assets/index-30iuQsEI.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-iDWLMtH_.css">
 </head>
 
 <body>
   <div id="root"></div>
 
-  <!-- Atualiza barra automaticamente -->
+  <!-- Atualização dinâmica REAL -->
   <script>
-  function rgbParaHex(rgb) {
-    const result = rgb.match(/\d+/g);
-    if (!result) return "#000000";
+    function rgbParaHex(rgb) {
+      const result = rgb.match(/\d+/g);
+      if (!result) return "#000000";
 
-    return "#" + result
-      .slice(0, 3)
-      .map(x => parseInt(x).toString(16).padStart(2, "0"))
-      .join("");
-  }
+      return "#" + result
+        .slice(0, 3)
+        .map(x => parseInt(x).toString(16).padStart(2, "0"))
+        .join("");
+    }
 
-  function atualizarBarraStatus(cor) {
-    const metaTheme = document.querySelector('meta[name="theme-color"]');
-    if (metaTheme) {
-      const hex = rgbParaHex(cor);
+    function atualizarBarraStatus(hex) {
+      let metaTheme = document.querySelector("meta[name='theme-color']");
+      if (!metaTheme) {
+        metaTheme = document.createElement("meta");
+        metaTheme.name = "theme-color";
+        document.head.appendChild(metaTheme);
+      }
       metaTheme.setAttribute("content", hex);
     }
-  }
 
-  window.addEventListener("load", () => {
-    const observer = new MutationObserver(() => {
-      const corAtual = window.getComputedStyle(document.body).backgroundColor;
-      atualizarBarraStatus(corAtual);
-    });
+    window.addEventListener("load", () => {
+      const observer = new MutationObserver(() => {
+        const corAtual = getComputedStyle(document.body).backgroundColor;
+        atualizarBarraStatus(rgbParaHex(corAtual));
+      });
 
-    observer.observe(document.body, {
-      attributes: true,
-      attributeFilter: ['style']
+      observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['style']
+      });
     });
-  });
-</script>
+  </script>
 
   <!-- Service Worker -->
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/Lanterna/service-worker.js")
-          .then((reg) => console.log("Service Worker OK:", reg.scope))
-          .catch((err) => console.error("Erro SW:", err));
+        navigator.serviceWorker.register("./service-worker.js");
       });
     }
   </script>
