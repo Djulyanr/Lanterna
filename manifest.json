@@ -5,7 +5,7 @@
   "id": "com.seuapp.lanterna",
   "start_url": "/Lanterna/",
   "scope": "/Lanterna/",
-  "display": "fullscreen",
+  "display": "standalone",
   "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#FFFFFF",
