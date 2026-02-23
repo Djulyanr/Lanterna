@@ -1,88 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Lanterna - Screen Light</title>
 
-  <title>Lanterna</title>
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000" id="themeMeta">
 
-  <!-- Theme color único e controlável -->
-  <meta name="theme-color" content="#000000">
-
-  <!-- iOS -->
+  <!-- Samsung / Android fullscreen -->
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- Manifest -->
-  <link rel="manifest" href="/Lanterna/manifest.json">
-
-  <!-- Ícones -->
-  <link rel="icon" type="image/png" href="./favicon.png" />
-  <link rel="apple-touch-icon" href="./icon-192.png">
-
-  <!-- Evita flash branco e garante tela cheia -->
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      background-color: #000000;
-      overflow: hidden;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    #colorPicker {
+      position: fixed;
+      bottom: 40px;
+      width: 120px;
+      height: 50px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    #hint {
+      position: fixed;
+      top: 20px;
+      color: white;
+      font-size: 14px;
+      opacity: 0.6;
     }
   </style>
-
-  <!-- Bundle -->
-  <script type="module" src="/Lanterna/assets/index-30iuQsEI.js">
-  <link rel="stylesheet" href="/Lanterna/assets/index-iDWLMtH_.css">
 </head>
-
 <body>
-  <div id="root"></div>
 
-  <!-- Atualização dinâmica REAL -->
+  <div id="hint">Toque na cor para mudar</div>
+  <input type="color" id="colorPicker" value="#ffffff">
+
   <script>
-    function rgbParaHex(rgb) {
-      const result = rgb.match(/\d+/g);
-      if (!result) return "#000000";
+    const picker = document.getElementById("colorPicker");
+    const themeMeta = document.getElementById("themeMeta");
 
-      return "#" + result
-        .slice(0, 3)
-        .map(x => parseInt(x).toString(16).padStart(2, "0"))
-        .join("");
+    function setColor(color) {
+      document.body.style.background = color;
+      themeMeta.setAttribute("content", color);
+
+      // Ajusta texto para contraste
+      const hint = document.getElementById("hint");
+      const brightness = parseInt(color.substring(1), 16);
+      hint.style.color = brightness > 0xffffff/2 ? "black" : "white";
     }
 
-    function atualizarBarraStatus(hex) {
-      let metaTheme = document.querySelector("meta[name='theme-color']");
-      if (!metaTheme) {
-        metaTheme = document.createElement("meta");
-        metaTheme.name = "theme-color";
-        document.head.appendChild(metaTheme);
-      }
-      metaTheme.setAttribute("content", hex);
-    }
-
-    window.addEventListener("load", () => {
-      const observer = new MutationObserver(() => {
-        const corAtual = getComputedStyle(document.body).backgroundColor;
-        atualizarBarraStatus(rgbParaHex(corAtual));
-      });
-
-      observer.observe(document.body, {
-        attributes: true,
-        attributeFilter: ['style']
-      });
+    picker.addEventListener("input", (e) => {
+      setColor(e.target.value);
     });
+
+    // Cor inicial
+    setColor("#000000");
   </script>
-
-  <!--
-<script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("/Lanterna/service-worker.js");
-    });
-  }
-</script>
--->
 
 </body>
 </html>
