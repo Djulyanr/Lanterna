@@ -1,19 +1,21 @@
-const CACHE_NAME = "lanterna-v1";
-// Adicione o index.html e o favicon que estavam faltando
+const CACHE_NAME = "lanterna-v2";
+
+const BASE_PATH = "/Lanterna/";
+
 const ASSETS = [
-  "/Lanterna/",
-  "/Lanterna/index.html",
-  "/Lanterna/manifest.json",
-  "/Lanterna/favicon.png",
-  "/Lanterna/icon-192.png",
-  "/Lanterna/icon-512.png",
-  "/Lanterna/assets/index-30iuQsEI.js", // Nome exato do seu JS
-  "/Lanterna/assets/index-iDWLMtH_.css"  // Nome exato do seu CSS
+  BASE_PATH,
+  BASE_PATH + "index.html",
+  BASE_PATH + "manifest.json",
+  BASE_PATH + "favicon.png",
+  BASE_PATH + "icon-192.png",
+  BASE_PATH + "icon-512.png",
+  BASE_PATH + "assets/index-30iuQsEI.js",
+  BASE_PATH + "assets/index-iDWLMtH_.css"
 ];
 
+// INSTALAÇÃO
 self.addEventListener("install", (event) => {
-  // O skipWaiting faz com que o novo SW assuma o controle imediatamente
-  self.skipWaiting(); 
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS);
@@ -21,8 +23,8 @@ self.addEventListener("install", (event) => {
   );
 });
 
+// ATIVAÇÃO
 self.addEventListener("activate", (event) => {
-  // Limpa caches antigos para não ocupar espaço desnecessário
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -34,14 +36,25 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
-  return self.clients.claim();
+  self.clients.claim();
 });
 
+// FETCH
 self.addEventListener("fetch", (event) => {
+  const request = event.request;
+
+  // Se for navegação (abrir página)
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(request).catch(() => caches.match(BASE_PATH + "index.html"))
+    );
+    return;
+  }
+
+  // Para arquivos estáticos
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      // Estratégia: Tenta o cache, se não tiver, busca na rede
-      return response || fetch(event.request);
+    caches.match(request).then((response) => {
+      return response || fetch(request);
     })
   );
 });
