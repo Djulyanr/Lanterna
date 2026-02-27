@@ -7,7 +7,7 @@
 
 html {
   /* Garante que o fundo não tenha espaços vazios em modo fullscreen */
-  background-color: #000000 !important;
+  background-color: #ffffff !important;
   height: 100%;
 }
 
@@ -20,7 +20,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   /* Força o preenchimento total da tela, ignorando margens do sistema */
-  background-color: #000000 !important;
+  background-color: #ffffff !important;
   color: hsl(var(--foreground));
 
   /* Suporte para diferentes tamanhos de viewport (incluindo barras dinâmicas) */
@@ -53,7 +53,15 @@ body {
  */
 :root {
   --font-sans: "Inter", sans-serif;
-  --background: 0 0% 0%; /* Preto */
-  --foreground: 0 0% 100%; /* Branco */
+  --background: 0 0% 100%; /* Branco */
+  --foreground: 222 47% 11%; /* Texto escuro */
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 0 0% 100%;
+  --border: 214 32% 91%;
   /* Adicione aqui suas outras variáveis se necessário */
 }
