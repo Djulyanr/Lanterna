@@ -2,13 +2,12 @@
 /* Força o preenchimento total da tela, ignorando margens do sistema */
 /**
  * ESTILOS GERAIS E RESET
- * Focado no preenchimento total da tela para o modo Lanterna
+ * Tema CLARO para modo inicial da Lanterna
  */
 
 html {
-  /* Garante que o fundo não tenha espaços vazios em modo fullscreen */
-  background-color: #000000 !important;
   height: 100%;
+  background-color: #f4f6f9 !important; /* Fundo claro suave */
 }
 
 body {
@@ -19,15 +18,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Força o preenchimento total da tela, ignorando margens do sistema */
-  background-color: #000000 !important;
-  color: hsl(var(--foreground));
+  background-color: #f4f6f9 !important;
+  color: #1f2937;
 
-  /* Suporte para diferentes tamanhos de viewport (incluindo barras dinâmicas) */
   min-height: 100vh !important;
   min-height: 100svh !important;
 
-  /* Ajuste para o notch/recorte da câmera e gestos do Android */
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
@@ -49,11 +45,72 @@ body {
 }
 
 /**
- * CONFIGURAÇÕES TÉCNICAS DO PROJETO (Tailwind/Variáveis)
+ * VARIÁVEIS DO TEMA CLARO
  */
 :root {
   --font-sans: "Inter", sans-serif;
-  --background: 0 0% 0%; /* Preto */
-  --foreground: 0 0% 100%; /* Branco */
-  /* Adicione aqui suas outras variáveis se necessário */
+
+  /* Tema claro elegante */
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+  --border: 214 32% 91%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --primary: 221 83% 53%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --accent: 200 100% 50%;
+  --accent-foreground: 0 0% 100%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 214 32% 91%;
+  --ring: 221 83% 53%;
+
+  --radius: .75rem;
+}
+
+/* ============================= */
+/* CORES VIVAS DOS BOXES */
+/* ============================= */
+
+.branco {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.azul {
+  background: #0066ff !important;
+  color: #ffffff !important;
+}
+
+.verde {
+  background: #00e676 !important;
+  color: #000000 !important;
+}
+
+.amarelo {
+  background: #ffd600 !important;
+  color: #000000 !important;
+}
+
+.vermelho {
+  background: #ff1744 !important;
+  color: #ffffff !important;
+}
+
+.mosaico {
+  background: linear-gradient(
+    135deg,
+    #ff0000,
+    #ff9900,
+    #ffff00,
+    #00ff00,
+    #00ffff,
+    #0000ff,
+    #ff00ff
+  ) !important;
+  color: #ffffff !important;
 }
